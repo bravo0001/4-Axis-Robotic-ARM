@@ -70,7 +70,7 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 - **Latency:** ~1 ms
 
 ### Transmitter (ESP32 + IMU)
-- Reads raw accelerometer & gyroscope data from IMU (e.g., MPU-6050 via I²C)
+- Reads raw accelerometer & gyroscope data from IMU ( MPU-6050 via I²C)
 - Applies **Kalman Filter** to fuse accel + gyro and eliminate sensor drift/noise
 - Packs filtered 4-axis angles into a data packet and transmits via ESP-NOW
 
