@@ -108,7 +108,7 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 | ESP32 DevKit v1 | 2 |
 | MPU-6050 IMU Module | 1 |
 | 12V DC Gear Motor | 4 |
-| Relay H-Bridge Module (e.g., BTS7960) | 4 |
+| SPDT Relay H-Bridge (e.g., BTS7960) | 8 |
 | 10kΩ Rotary Potentiometer | 4 |
 | 12V DC Power Supply | 1 |
 | 3.3V / 5V Logic Power | 1 |
