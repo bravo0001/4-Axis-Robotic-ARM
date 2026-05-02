@@ -14,7 +14,7 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 │         TRANSMITTER             │ ──────────────────────────► │         RECEIVER / MOTHERBOARD  │
 │                                 │       ~1ms latency          │                                 │
 │  ESP32 DevKit                   │                             │  ESP32 Custom PCB               │
-│  IMU Sensor (MPU-6050)          │                             │  4× 12V DC Motors               │
+│  2x MPU-6050(IMU Sensor)        │                             │  4× 12V DC Motors               │
 │  Kalman Filter (on-board)       │                             │  8× SPDT Relay H-Bridge         │
 │  Reads 4-axis orientation       │                             │  4× 10kΩ Potentiometers (ADC1)  |
 │                                 |                             |  12v Booster module             |
