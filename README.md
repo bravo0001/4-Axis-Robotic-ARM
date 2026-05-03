@@ -143,10 +143,8 @@ Firmware/VID_20260423_234357317.mp4~2.mp4
 See the demo to understand the system in action. Add a `demo.mp4` file to `Firmware/Demo/` or provide a YouTube link and paste it below. Example embed (YouTube):
 
 
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/9cfaaa7f-c85e-4afe-878e-ee82e51a2cbb" width="50%" controls muted>
-  </video>
-</div>
+<video src="https://github.com/user-attachments/assets/9cfaaa7f-c85e-4afe-878e-ee82e51a2cbb" width="600" controls>
+</video>
 
 
 If you have a local mp4 file named `demo.mp4`, place it in `Hardware/Demo/` and GitHub will render a downloadable file; to stream in README, upload the video to YouTube and embed as above for best compatibility.
