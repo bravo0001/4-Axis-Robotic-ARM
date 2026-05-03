@@ -56,6 +56,10 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 ├── Hardware/
 │   ├── Schematics/
 │   │   └── PLACEHOLDER.md         # Add KiCad / Eagle schematic files here
+│   ├── Transmitter_glove-Natural_interface/
+│   │   ├── Glove.jpeg             # Wearable transmitter glove overview (palm ESP32 + forearm band)
+│   │   ├── Buttons.jpg            # Fingertip push-buttons for gripper control (open/close)
+│   │   └── MPUS.jpg               # MPU-6050 sensor placement (forearm + palm)
 │   └── PCB_Gerbers/
 │       └── PLACEHOLDER.md         # Add Gerber files for PCB fabrication here
 ├── .gitignore                     # Arduino / PlatformIO ignores
