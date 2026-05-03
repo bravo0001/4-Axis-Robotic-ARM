@@ -134,6 +134,19 @@ Below are photos of the actual wearable transmitter (glove + forearm band) used 
   - ADC1 is used because ADC2 is unavailable when Wi-Fi / ESP-NOW is active
 - Drives **12V DC motors** via Relay H-Bridge circuits (direction + enable control)
 
+![Receiver / Motherboard — assembled ESP32 motherboard and relay board](Hardware/Schematics/motherboard.jpeg)
+
+**Demonstration video**
+
+See the demo to understand the system in action. Add a `demo.mp4` file to `Hardware/Demo/` or provide a YouTube link and paste it below. Example embed (YouTube):
+
+```
+<!-- Replace URL with your YouTube video -->
+[![Demo video](https://img.youtube.com/vi/<VIDEO_ID>/0.jpg)](https://www.youtube.com/watch?v=<VIDEO_ID>)
+```
+
+If you have a local mp4 file named `demo.mp4`, place it in `Hardware/Demo/` and GitHub will render a downloadable file; to stream in README, upload the video to YouTube and embed as above for best compatibility.
+
 ### Feedback / Encoding
 - **Type:** Absolute analog encoding (no homing required on power-up)
 - **Sensor:** 10kΩ potentiometer per axis
