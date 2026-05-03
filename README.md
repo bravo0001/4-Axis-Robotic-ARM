@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-blue.svg)](https://www.espressif.com/en/products/socs/esp32)
 
-A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-based motherboard, **ESP-NOW peer-to-peer communication** for ultra-low-latency control, **12V DC motors** driven by relay H-Bridges, and **potentiometer-based absolute closed-loop feedback** processed through a **Kalman Filter** for smooth, noise-free motion. This project demonstrates advanced PCB design, digital signal processing, and industrial-grade mechatronics.
+A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-based motherboard, **ESP-NOW peer-to-peer communication** for ultra-low-latency control, **12V DC motors** driven by relay H-Bridges, and **potentiometer-based absolute closed-loop feedback** processed through a **Kalman Filter** for smooth, noise-free motion. The system is controlled by a natural interface (wearable glove + IMUs + fingertip buttons). This project demonstrates advanced PCB design, digital signal processing, and industrial-grade mechatronics.
 
 ---
 
@@ -34,6 +34,7 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 | **Feedback** | Closed-loop absolute encoding via 10kΩ potentiometers |
 | **ADC Pins (Feedback)** | GPIO 34, 35, 36, 39 (ADC1 — safe with Wi-Fi/ESP-NOW) |
 | **Signal Processing** | Kalman Filter for IMU noise reduction |
+| **Control Interface** | Natural wearable glove (IMUs + fingertip buttons) |
 | **Motor Drive** | 12V DC motors via Relay H-Bridge circuits |
 | **Firmware Architecture** | Non-blocking state machine on Receiver |
 
@@ -77,6 +78,40 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 - Reads raw accelerometer & gyroscope data from IMU ( MPU-6050 via I²C)
 - Applies **Kalman Filter** to fuse accel + gyro and eliminate sensor drift/noise
 - Packs filtered 4-axis angles into a data packet and transmits via ESP-NOW
+
+### Transmitter (Wearable Glove Interface)
+The transmitter is implemented as a wearable, natural interface: a glove with an ESP32 mounted on the palm and a small forearm band. The wearable contains two MPU-6050 IMUs and two fingertip push-buttons used to control the gripper. This setup maps natural arm and hand motions into robot joint commands for intuitive control.
+
+- **Forearm band MPU-6050**: mounted on the arm band to capture arm orientation (used for arm/base/shoulder control — X and Z axes).
+- **Palm MPU-6050**: mounted on the palm to capture hand/wrist orientation (X axis).
+- **ESP32 (palm-mounted)**: reads both IMUs over I²C and the fingertip push-buttons, packs orientation and button states into the ESP-NOW payload, and transmits to the Receiver.
+- **Fingertip buttons**: two discrete push-buttons embedded at the fingertips — mapped to gripper actions (open / close).
+
+Usage and mapping notes:
+- Forearm MPU → arm orientation (map to base/shoulder as configured in `Transmitter.ino`).
+- Palm MPU → wrist/hand orientation (map to wrist joint in the receiver state machine).
+- Buttons → gripper open/close flags included in the ESP-NOW packet (sent as `uint8_t` or `bool` fields).
+- This wearable arrangement is intended as a natural interface: the user performs normal arm/hand motions and fingertip presses to control the robotic arm and gripper.
+
+Practical tips:
+- Use I2C for both IMUs; if both sensors share the same address use a small I2C multiplexer or reconfigure addresses where supported.
+- Debounce button inputs in firmware (software debounce or simple RC hardware) to avoid spurious commands.
+- Calibrate each IMU and verify axis alignment between sensor frames and the robot joint frames before relying on production mappings.
+- Keep the ESP32's ground common with the sensor grounds; use short wiring for the palm MPU for best results.
+
+Suggested addition to the ESP-NOW payload (example):
+```cpp
+typedef struct {
+  float axis1_angle;
+  float axis2_angle;
+  float axis3_angle;
+  float axis4_angle;
+  uint8_t gripper_open;   // 0/1
+  uint8_t gripper_close;  // 0/1
+} RoboArmPacket;
+```
+
+These fields allow the receiver to process continuous orientation values and discrete gripper commands together.
 
 ### Receiver / Motherboard (Custom ESP32 PCB)
 - Receives angle packets via `OnDataRecv` ESP-NOW callback (interrupt-driven)
