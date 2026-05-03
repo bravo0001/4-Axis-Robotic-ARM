@@ -48,6 +48,10 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 │   │   └── Transmitter.ino        # ESP32 transmitter: IMU read + Kalman + ESP-NOW send
 │   └── Receiver/
 │       └── Receiver.ino           # ESP32 receiver: ESP-NOW recv + state machine + motor control
+├── Calibration/
+│   ├── All_Axis_Calibration.ino   # Multi-axis potentiometer calibration (all 4 axes simultaneously)
+│   ├── Axis_degree_calibration.ino # Single-axis calibration for debugging individual axes
+│   └── README.md                  # Calibration documentation
 ├── Hardware/
 │   ├── Schematics/
 │   │   └── PLACEHOLDER.md         # Add KiCad / Eagle schematic files here
@@ -96,7 +100,31 @@ A wireless 4-Degrees-of-Freedom (4-DOF) robotic arm featuring a custom ESP32-bas
 
 ---
 
-## 🚀 Getting Started
+## � Calibration
+
+The `/Calibration/` folder contains two Arduino sketches for calibrating and testing the potentiometer feedback system:
+
+### `All_Axis_Calibration.ino`
+- Reads all four potentiometer axes simultaneously (GPIO 34, 35, 36, 39)
+- Displays raw ADC values, voltage readings, and calculated angles in real-time
+- Useful for verifying all axes are functioning correctly
+- **Update interval:** 250 ms
+
+### `Axis_degree_calibration.ino`
+- Single-axis debugging sketch targeting GPIO 34
+- Ideal for troubleshooting individual potentiometer connections
+- Displays detailed readings: raw value, voltage, and angle
+- **Update interval:** 100 ms
+
+**Usage:**
+1. Upload the desired calibration sketch to the Receiver ESP32
+2. Open Serial Monitor at **115200 baud**
+3. Rotate each potentiometer and verify the readings are linear and within expected ranges (0°–270°)
+4. Adjust potentiometer range constants (270.0) in the code if your sensors have different specifications
+
+---
+
+## �🚀 Getting Started
 
 ### Prerequisites
 - [Arduino IDE](https://www.arduino.cc/en/software) ≥ 2.x **or** [PlatformIO](https://platformio.org/)
