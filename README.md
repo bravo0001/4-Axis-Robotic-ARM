@@ -113,6 +113,16 @@ typedef struct {
 
 These fields allow the receiver to process continuous orientation values and discrete gripper commands together.
 
+**Wearable photos**
+
+Below are photos of the actual wearable transmitter (glove + forearm band) used as the natural interface. The palm-mounted ESP32, the two MPU-6050 modules (palm + forearm), and the fingertip push-buttons are shown.
+
+![Palm view — ESP32 and palm MPU mounted on glove](Hardware/Transmitter_glove-Natural_interface/Untitled.jpg)
+
+![Fingertip buttons — two push-buttons embedded at fingertips (open/close gripper)](Hardware/Transmitter_glove-Natural_interface/WhatsApp%20Image%202026-05-03%20at%205.19.38%20PM.jpeg)
+
+![Overview — forearm band MPU, wiring to palm MPU and ESP32](Hardware/Transmitter_glove-Natural_interface/Untitled2.jpg)
+
 ### Receiver / Motherboard (Custom ESP32 PCB)
 - Receives angle packets via `OnDataRecv` ESP-NOW callback (interrupt-driven)
 - Runs a **non-blocking state machine** for each axis to drive motors to target positions
