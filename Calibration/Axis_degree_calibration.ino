@@ -1,3 +1,6 @@
+// this code helps to messure the degree of rotation of the axis (potentiometer) manually to set the limits of the axis in the code for the robotic arm. It reads the raw value from the potentiometer, converts it to voltage, and then calculates the corresponding angle in degrees based on a standard 270-degree potentiometer. This is useful for calibrating each axis of the robotic arm to ensure accurate movement within its physical limits. 
+
+
 const int potPin = 34; // Analog pin for potentiometer
 
 void setup() {

@@ -1,3 +1,6 @@
+//this code runs all 4 axis together in synk with in there egree of rotation limt in loop to test everything is work perfectly fine and to check the calibration of all axis together in one go.
+
+
 // Array of pins you want to read
 const int potPins[] = {34, 35, 36, 39};
 const int numPins = 4;
