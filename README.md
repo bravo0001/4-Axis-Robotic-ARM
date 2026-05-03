@@ -287,7 +287,7 @@ void loop() {
 | Component | Qty |
 |---|---|
 | ESP32 DevKit v1 | 2 |
-| MPU-6050 IMU Module | 1 |
+| MPU-6050 IMU Module | 2 |
 | 12V DC Gear Motor | 4 |
 | SPDT Relay H-Bridge (e.g., BTS7960) | 8 |
 | 10kΩ Rotary Potentiometer | 4 |
