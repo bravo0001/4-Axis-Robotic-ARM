@@ -127,7 +127,7 @@ Below are photos of the actual wearable transmitter (glove + forearm band) used 
 
 ![Overview — forearm band MPU, wiring to palm MPU and ESP32](Hardware/Transmitter_glove-Natural_interface/Glove.jpeg)
 
-![Palm view — ESP32 and palm MPU mounted on glove](Firmware/VID_20260423_234357317.mp4~2.mp4)
+![video view — ESP32 and palm MPU mounted on glove](Firmware/VID_20260423_234357317.mp4~2.mp4)
 Firmware/VID_20260423_234357317.mp4~2.mp4
 ### Receiver / Motherboard (Custom ESP32 PCB)
 - Receives angle packets via `OnDataRecv` ESP-NOW callback (interrupt-driven)
