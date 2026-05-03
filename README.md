@@ -122,6 +122,88 @@ The `/Calibration/` folder contains two Arduino sketches for calibrating and tes
 3. Rotate each potentiometer and verify the readings are linear and within expected ranges (0°–270°)
 4. Adjust potentiometer range constants (270.0) in the code if your sensors have different specifications
 
+### Running All_Axis_Calibration.ino
+Upload and run this sketch on the Receiver ESP32 to simultaneously test all four potentiometers:
+```cpp
+// Array of pins you want to read
+const int potPins[] = {34, 35, 36, 39};
+const int numPins = 4;
+
+void setup() {
+  Serial.begin(115200);
+  
+  // ESP32 ADC setup
+  analogReadResolution(12); // 0-4095 range
+  analogSetAttenuation(ADC_11db); // Standard for 0-3.3V range
+
+  Serial.println("Multi-Pin Potentiometer Initialization...");
+}
+
+void loop() {
+  for (int i = 0; i < numPins; i++) {
+    int rawValue = analogRead(potPins[i]);
+    
+    // Calculate voltage and degrees
+    float voltage = rawValue * (3.3 / 4095.0);
+    float degrees = (rawValue / 4095.0) * 270.0;
+
+    // Print label for each pin
+    Serial.print("PIN "); 
+    Serial.print(potPins[i]);
+    Serial.print(": [Raw: ");
+    Serial.print(rawValue);
+    Serial.print(" | Volts: ");
+    Serial.print(voltage, 2);
+    Serial.print("V | Ang: ");
+    Serial.print(degrees, 1);
+    Serial.print("°]   ");
+  }
+  
+  Serial.println();
+  delay(250); // Delay for readability
+}
+```
+
+**Expected Serial Output:**
+```
+Multi-Pin Potentiometer Initialization...
+PIN 34: [Raw: 2048 | Volts: 1.65V | Ang: 135.0°]   PIN 35: [Raw: 1024 | Volts: 0.83V | Ang: 67.5°]   PIN 36: [Raw: 3072 | Volts: 2.48V | Ang: 202.5°]   PIN 39: [Raw: 512 | Volts: 0.41V | Ang: 33.8°]
+```
+
+### Running Axis_degree_calibration.ino
+Upload and run this sketch for debugging a single potentiometer:
+```cpp
+const int potPin = 34; // Analog pin for potentiometer
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12); // 0-4095 range
+}
+
+void loop() {
+  int rawValue = analogRead(potPin);
+  
+  float voltage = rawValue * (3.3 / 4095.0);
+  float degrees = (rawValue / 4095.0) * 270.0;
+
+  Serial.print("Raw: ");
+  Serial.print(rawValue);
+  Serial.print(" | Voltage: ");
+  Serial.print(voltage);
+  Serial.print("V | Angle: ");
+  Serial.print(degrees);
+  Serial.println("°");
+
+  delay(100);
+}
+```
+
+**Troubleshooting Calibration:**
+- **Erratic readings:** Check potentiometer wires for loose connections; verify ADC pin is correct
+- **Non-linear values:** Potentiometer may be damaged; try a different unit
+- **Out of range (>270°):** Adjust the 270.0 multiplier based on your potentiometer's actual rotation range
+- **Stuck at min/max:** Check for mechanical binding or wiring issues
+
 ---
 
 ## �🚀 Getting Started
